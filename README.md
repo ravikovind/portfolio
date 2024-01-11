@@ -1,13 +1,19 @@
 # Hey there! 👋 I am using GitHub
+
 I'm Ravi Kovind, a passionate software developer based in Bangalore, India. I specialize in building cross-platform applications and exceptional websites, utilizing a range of technologies.
 
 **Location:** Bangalore, India (UTC +5:30)
 
+# Check out Portfolio 👇👇
+
 [![Portfolio](https://img.shields.io/badge/Portfolio-ravikovind.github.io-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://ravikovind.github.io)
-[![GitHub](https://img.shields.io/badge/GitHub-ravikovind-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ravikovind)
+
+## Connect with Me
+
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-ravi--kovind-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ravikovind)
 [![Twitter](https://img.shields.io/badge/Twitter-ravi__kovind-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/ravi_kovind)
 [![Instagram](https://img.shields.io/badge/Instagram-ravi__kovind-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/ravi_kovind)
+[![GitHub](https://img.shields.io/badge/GitHub-ravikovind-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ravikovind)
 
 Unleashing Limitless Potential: Expertly Crafting Cutting-Edge Cross-Platform Applications, Exceptional Websites, and Everything in Between and Redefining Digital Excellence. That's what I do.
 
@@ -27,13 +33,3 @@ Unleashing Limitless Potential: Expertly Crafting Cutting-Edge Cross-Platform Ap
 ![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black)
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-
-## Education
-
-- **NIT Allahabad**
-  - *Bachelor of Technology*
-  - *2017 - 2021*
-  - *Location: Allahabad, India*
-
-Feel free to reach out for collaboration or just to say hello! 😊
-

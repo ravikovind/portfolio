@@ -190,9 +190,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-      'context.read<MessageCubit>().state: ${context.read<MessageCubit>().state}',
-    );
+    // print(
+    //   'context.read<MessageCubit>().state: ${context.read<MessageCubit>().state}',
+    // );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Portfolio'),
@@ -203,17 +203,18 @@ class _HomePageState extends State<HomePage> {
               showAboutDialog(
                 context: context,
                 applicationName: 'Portfolio',
-                applicationVersion: '1.0.0',
+                applicationVersion: '2.0.0',
                 applicationIcon: const FlutterLogo(),
-                applicationLegalese: 'Ravi Kovind © 2023',
+                applicationLegalese: 'Ravi Kovind © 2024',
                 children: [
                   ListTile(
                     contentPadding: const EdgeInsets.all(0),
                     title: const Text('About'),
                     subtitle: const Text(
-                      'This is a simple Portfolio web application made with Flutter.',
+                      'This is a simple Portfolio web application made with Flutter & GSheet.',
                     ),
-                    trailing: const Icon(FontAwesomeIcons.github),
+                    leading: const Icon(FontAwesomeIcons.github),
+                    trailing: const Icon(Icons.launch),
                     onTap: () {
                       launchURL(
                         context,
@@ -606,10 +607,60 @@ class _HomePageState extends State<HomePage> {
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.1),
+              horizontal: MediaQuery.of(context).size.width * 0.1,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                const SizedBox(
+                  height: 16.0,
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text(
+                      'Simple Portfolio web application made with Flutter & GSheet. Check out the code on Github.'),
+                  subtitle: RichText(
+                    text: TextSpan(
+                      text: 'Check out the code on ',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2.4,
+                            wordSpacing: 1.2,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                      children: [
+                        TextSpan(
+                          text: ' Github.',
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 2.4,
+                                wordSpacing: 1.2,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                        /// if you clone this then please make sure leave a star on github
+                        /// and follow me on github(if you like my work)
+                        TextSpan(
+                          text: ' If you clone are going this then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet cose is available in the backend folder.',
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 2.4,
+                                wordSpacing: 1.2,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  leading: const Icon(FontAwesomeIcons.github),
+                  trailing: const Icon(Icons.launch),
+                  onTap: () {
+                    launchURL(
+                      context,
+                      'https://github.com/ravikovind/portfolio',
+                    );
+                  },
+                ),
                 const SizedBox(
                   height: 16.0,
                 ),
