@@ -241,6 +241,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: ListView(
+        primary: true,
         children: [
           Stack(
             children: [
@@ -581,7 +582,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.height * 0.75,
                                         child: WebViewWidget(
                                           controller: WebViewController()
                                             ..loadRequest(
