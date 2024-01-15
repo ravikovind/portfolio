@@ -622,33 +622,18 @@ class _HomePageState extends State<HomePage> {
                       'Simple Portfolio web application made with Flutter & GSheet. Check out the code on Github.'),
                   subtitle: RichText(
                     text: TextSpan(
-                      text: 'Check out the code on ',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                             letterSpacing: 2.4,
                             wordSpacing: 1.2,
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                      children: [
-                        TextSpan(
-                          text: ' Github.',
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 2.4,
-                                wordSpacing: 1.2,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
+                      children: const [
                         /// if you clone this then please make sure leave a star on github
                         /// and follow me on github(if you like my work)
                         TextSpan(
-                          text: ' If you clone are going this then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet cose is available in the backend folder.',
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 2.4,
-                                wordSpacing: 1.2,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                          text: ' If you are going to clone code repository then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet cose is available in the backend folder.',
+                         
                         ),
                       ],
                     ),
