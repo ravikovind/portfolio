@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:me/data/models/message.dart';
@@ -8,7 +10,7 @@ part 'message_state.dart';
 class MessageCubit extends Cubit<MessageState> {
   final APIRepository _apiRepository;
   MessageCubit(this._apiRepository) : super(MessageInitial());
-  void sendMessage(Message message) async {
+  FutureOr<void> sendMessage(Message message) async {
     emit(MessageSending());
     try {
       final result = await _apiRepository.sendThanks(message);
@@ -18,8 +20,8 @@ class MessageCubit extends Cubit<MessageState> {
       } else {
         emit(const MessageError(message: 'There is an error'));
       }
-    } catch (e) {
-      emit(MessageError(message: 'there is an error due to $e'));
+    } catch (_) {
+      emit(const MessageError(message: 'There is an error'));
     }
   }
 }

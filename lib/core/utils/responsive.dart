@@ -2,31 +2,28 @@ import 'package:flutter/material.dart';
 
 /// list of all devices
 enum DeviceType {
-  desktop,
-  handset,
+  compact,
+  medium,
+  expanded,
 }
 
-/// breakpoints for desktop, tablet and handset
-const desktop = 520;
-const handset = 280;
-
-/// [_displayTypeOf] returns the device type
 DeviceType _displayTypeOf(BuildContext context) {
-  /// Use shortestSide to detect device type regardless of orientation
-  double deviceWidth = MediaQuery.of(context).size.shortestSide;
-  if (deviceWidth > desktop) {
-    return DeviceType.desktop;
+  /// use shortest width to detect device type regardless of orientation.
+  double deviceWidth = MediaQuery.of(context).size.width;
+  if (deviceWidth >= 840) {
+    return DeviceType.expanded;
+  } else if (deviceWidth >= 600 && deviceWidth < 840) {
+    return DeviceType.medium;
   } else {
-    return DeviceType.handset;
+    return DeviceType.compact;
   }
 }
 
-/// [isDeviceDesktop] returns true if the device is desktop
-bool isDeviceDesktop(BuildContext context) {
-  return _displayTypeOf(context) == DeviceType.desktop;
-}
+bool compact(BuildContext context) =>
+    _displayTypeOf(context) == DeviceType.compact;
 
-/// [isDeviceMobile] returns true if the device is mobile
-bool isDeviceMobile(BuildContext context) {
-  return _displayTypeOf(context) == DeviceType.handset;
-}
+bool medium(BuildContext context) =>
+    _displayTypeOf(context) == DeviceType.medium;
+
+bool expanded(BuildContext context) =>
+    _displayTypeOf(context) == DeviceType.expanded;

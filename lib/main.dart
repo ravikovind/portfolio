@@ -49,6 +49,7 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider<ProjectCubit>(
+            lazy: false,
             create: (context) => ProjectCubit(APIRepository(
               service: APIService(),
             ))
@@ -70,7 +71,6 @@ class Application extends StatelessWidget {
               title: kName,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                useMaterial3: true,
                 fontFamily: kFontFamily,
                 colorScheme: lightColorScheme,
                 inputDecorationTheme: const InputDecorationTheme(
@@ -84,7 +84,6 @@ class Application extends StatelessWidget {
                 ),
               ),
               darkTheme: ThemeData(
-                useMaterial3: true,
                 fontFamily: kFontFamily,
                 colorScheme: darkColorScheme,
                 inputDecorationTheme: const InputDecorationTheme(

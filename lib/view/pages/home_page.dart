@@ -190,9 +190,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // print(
-    //   'context.read<MessageCubit>().state: ${context.read<MessageCubit>().state}',
-    // );
+    final mobile = compact(context);
+    final desktop = expanded(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Portfolio'),
@@ -240,248 +239,318 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: ListView(
-        primary: true,
-        children: [
-          Stack(
-            children: [
-              isDeviceDesktop(context)
-                  ? Align(
-                      alignment: Alignment.bottomRight,
-                      child: Lottie.asset(
-                        'assets/animations/json_2.json',
-                        fit: BoxFit.contain,
-                        reverse: true,
-                        height: MediaQuery.of(context).size.width * 0.5,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.05,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 16.0),
-                    Text(
-                      'Hey there! I am ',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                wordSpacing: 2.0,
-                              ),
-                    ),
-                    Text(
-                      'Ravi Kovind',
-                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                            fontSize: isDeviceDesktop(context) ? 72.0 : 48.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    Text(
-                      'Lead Dev || Flutter Dev || NIT Allahabad',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w200,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                    const SocialAccounts(
-                      alignment: MainAxisAlignment.start,
-                    ),
-                    const SizedBox(
-                      height: 32.0,
-                    ),
-                    Text(
-                      'Unleashing Limitless Potential:\nExpertly Crafting Cutting-Edge\nCross-Platform Applications,\nExceptional Websites,\nand Everything in Between\nand Redefining Digital Excellence.\nThat\'s what I do.',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            letterSpacing: 2.4,
-                            wordSpacing: 2.4,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                    OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        side: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      onPressed: () {
-                        launchURL(context, 'mailto:$kEmail');
-                      },
-                      icon: const Icon(
-                        Icons.mail,
-                      ),
-                      label: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Get In Touch',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                fontSize:
-                                    isDeviceDesktop(context) ? 20.0 : 18.0,
-                              ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05,
-              vertical: 16.0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Scrollbar(
+        thickness: 16,
+        interactive: true,
+        thumbVisibility: true,
+        trackVisibility: true,
+        radius: const Radius.circular(2.0),
+        child: ListView(
+          primary: true,
+          children: [
+            Stack(
               children: [
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Text(
-                  'About',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                Text(
-                  kAbout,
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        letterSpacing: 2.4,
-                        wordSpacing: 2.4,
-                      ),
-                ),
-              ],
-            ),
-          ),
-          BlocConsumer<ProjectCubit, ProjectState>(
-            listener: (context, state) {
-              if (state is ProjectError) {
-                showMessage(
-                  context,
-                  'Error!',
-                  state.message,
-                );
-              }
-            },
-            builder: (context, state) {
-              if (state is ProjectLoading) {
-                return const Loading(
-                  eventMessage: 'Loading Projects...',
-                );
-              } else if (state is ProjectLoaded) {
-                final projects = state.projects;
-                if (projects.isEmpty) {
-                  return const SizedBox.shrink();
-                }
-                return Container(
+                desktop
+                    ? Align(
+                        alignment: Alignment.bottomRight,
+                        child: Lottie.asset(
+                          'assets/animations/json_2.json',
+                          fit: BoxFit.contain,
+                          reverse: true,
+                          height: MediaQuery.of(context).size.width * 0.375,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.05,
-                    vertical: 16.0,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 16.0),
+                      Text(
+                        'Hey there! I am ',
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  wordSpacing: 2.0,
+                                ),
+                      ),
+                      Text(
+                        'Ravi Kovind',
+                        style:
+                            Theme.of(context).textTheme.displayLarge?.copyWith(
+                                  fontSize: mobile ? 48.0 : 72.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                      ),
+                      Text(
+                        'Lead Developer || Open Source Contributor || NIT Allahabad Alumnus',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w200,
+                            ),
+                      ),
                       const SizedBox(
                         height: 16.0,
                       ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Projects\n',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  'A few things I\'ve built(it\'s my personal work. community contribution and fun stuff)',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 2.4,
-                                    wordSpacing: 1.2,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
+                      const SocialAccounts(
+                        alignment: MainAxisAlignment.start,
+                      ),
+                      const SizedBox(
+                        height: 32.0,
+                      ),
+                      Text(
+                        'Unleashing Limitless Potential:\nExpertly Crafting Cutting-Edge\nCross-Platform Applications,\nExceptional Websites,\nand Everything in Between\nand Redefining Digital Excellence.\nThat\'s what I do.',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              letterSpacing: 2.4,
+                              wordSpacing: 2.4,
                             ),
-                          ],
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          side: BorderSide(
+                            width: 1,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        onPressed: () {
+                          launchURL(context, 'mailto:$kEmail');
+                        },
+                        icon: const Icon(
+                          Icons.mail,
+                        ),
+                        label: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Get In Touch',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                  fontSize: mobile ? 16.0 : 24.0,
+                                ),
+                          ),
                         ),
                       ),
                       const SizedBox(
-                        height: 24.0,
+                        height: 16.0,
                       ),
-                      ListView.builder(
-                        itemCount: projects.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final project = projects[index];
-                          return ExpansionTile(
-                            title: Text(
-                              '${project.name}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                    fontSize:
-                                        isDeviceDesktop(context) ? 18.0 : 16.0,
-                                    letterSpacing: 2.4,
-                                    wordSpacing: 2.4,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                            ),
-                            initiallyExpanded: true,
-                            subtitle: Text('${project.description}'),
-                            childrenPadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8.0,
-                            ),
-                            expandedCrossAxisAlignment:
-                                CrossAxisAlignment.start,
-                            expandedAlignment: Alignment.topLeft,
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+                vertical: 16.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  Text(
+                    'About',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  Text(
+                    kAbout,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          letterSpacing: 2.4,
+                          wordSpacing: 2.4,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            BlocConsumer<ProjectCubit, ProjectState>(
+              listener: (context, state) {
+                if (state is ProjectError) {
+                  showMessage(
+                    context,
+                    'Error!',
+                    state.message,
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state is ProjectLoading) {
+                  return const Loading(
+                    eventMessage: 'Loading Projects...',
+                  );
+                } else if (state is ProjectLoaded) {
+                  final projects = state.projects;
+                  if (projects.isEmpty) {
+                    return const SizedBox.shrink();
+                  }
+                  return Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                      vertical: 16.0,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Projects\n',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                             children: [
-                              /// tags
-                              Wrap(
-                                alignment: WrapAlignment.start,
-                                crossAxisAlignment: WrapCrossAlignment.start,
-                                runAlignment: WrapAlignment.start,
-                                spacing: 8.0,
-                                runSpacing: 8.0,
-                                children: [
-                                  ...project.tags?.map(
-                                        (e) => Chip(
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface,
-                                          label: Text(
-                                            e,
+                              TextSpan(
+                                text:
+                                    'A few things I\'ve built(it\'s my personal work. community contribution and fun stuff)',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 2.4,
+                                      wordSpacing: 1.2,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24.0,
+                        ),
+                        ListView.builder(
+                          itemCount: projects.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final project = projects[index];
+                            return ExpansionTile(
+                              title: Text(
+                                '${project.name}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      fontSize: mobile ? 16.0 : 24.0,
+                                      letterSpacing: 2.4,
+                                      wordSpacing: 2.4,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
+                              initiallyExpanded: true,
+                              subtitle: Text('${project.description}'),
+                              childrenPadding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 8.0,
+                              ),
+                              expandedCrossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              expandedAlignment: Alignment.topLeft,
+                              children: [
+                                /// tags
+                                Wrap(
+                                  alignment: WrapAlignment.start,
+                                  crossAxisAlignment: WrapCrossAlignment.start,
+                                  runAlignment: WrapAlignment.start,
+                                  spacing: 8.0,
+                                  runSpacing: 8.0,
+                                  children: [
+                                    ...project.tags?.map(
+                                          (tag) => Chip(
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            label: Text(
+                                              tag,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall
+                                                  ?.copyWith(
+                                                    letterSpacing: 2.4,
+                                                    wordSpacing: 2.4,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onError,
+                                                  ),
+                                            ),
+                                          ),
+                                        ) ??
+                                        [],
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                Builder(
+                                  builder: (context) {
+                                    if (project.appUrl.isNullOrEmpty) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    return ListTile(
+                                      title: Text(
+                                        'Try Android Application',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontSize: mobile ? 16.0 : 24.0,
+                                              letterSpacing: 2.4,
+                                              wordSpacing: 2.4,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green,
+                                            ),
+                                      ),
+                                      leading: const Icon(
+                                        Icons.android,
+                                        color: Colors.green,
+                                      ),
+                                      trailing: const Icon(Icons.launch),
+                                      onTap: () {
+                                        launchURL(context, '${project.appUrl}');
+                                      },
+                                    );
+                                  },
+                                ),
+                                Builder(
+                                  builder: (context) {
+                                    if (project.webUrl.isNullOrEmpty) {
+                                      return const SizedBox.shrink();
+                                    }
+
+                                    final webUrl = project.webUrl.notNullValue;
+
+                                    /// load this url in webview sized box media query 0.5
+                                    return Column(
+                                      children: [
+                                        /// list tile to copy url
+                                        ListTile(
+                                          title: Text(
+                                            webUrl,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelSmall
@@ -491,238 +560,178 @@ class _HomePageState extends State<HomePage> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .onError,
+                                                      .primary,
                                                 ),
                                           ),
-                                        ),
-                                      ) ??
-                                      [],
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8.0,
-                              ),
-                              Builder(
-                                builder: (context) {
-                                  if (project.appUrl.isNullOrEmpty) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  return ListTile(
-                                    title: Text(
-                                      'Try Application Now',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge
-                                          ?.copyWith(
-                                            fontSize: isDeviceDesktop(context)
-                                                ? 20.0
-                                                : 18.0,
-                                            letterSpacing: 2.4,
-                                            wordSpacing: 2.4,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green,
+                                          trailing: const Icon(
+                                            Icons.copy,
                                           ),
-                                    ),
-                                    trailing: const Icon(
-                                      Icons.android,
-                                      color: Colors.green,
-                                    ),
-                                    onTap: () {
-                                      launchURL(context, '${project.appUrl}');
-                                    },
-                                  );
-                                },
-                              ),
-                              Builder(
-                                builder: (context) {
-                                  if (project.webUrl.isNullOrEmpty) {
-                                    return const SizedBox.shrink();
-                                  }
-
-                                  final webUrl = project.webUrl.notNullValue;
-
-                                  /// load this url in webview sized box media query 0.5
-                                  return Column(
-                                    children: [
-                                      /// list tile to copy url
-                                      ListTile(
-                                        title: Text(
-                                          webUrl,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                letterSpacing: 2.4,
-                                                wordSpacing: 2.4,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
+                                          onTap: () {
+                                            /// copy url to clipboard
+                                            Clipboard.setData(
+                                              ClipboardData(text: webUrl),
+                                            ).then(
+                                              (value) {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                    '$webUrl copied to clipboard!',
+                                                  ),
+                                                );
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(snackBar);
+                                              },
+                                            );
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          child: WebViewWidget(
+                                            controller: WebViewController()
+                                              ..loadRequest(
+                                                Uri.parse(webUrl),
                                               ),
+                                          ),
                                         ),
-                                        trailing: const Icon(
-                                          Icons.copy,
-                                        ),
-                                        onTap: () {
-                                          /// copy url to clipboard
-                                          Clipboard.setData(
-                                            ClipboardData(text: webUrl),
-                                          ).then(
-                                            (value) {
-                                              final snackBar = SnackBar(
-                                                content: Text(
-                                                  '$webUrl copied to clipboard!',
-                                                ),
-                                              );
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
-                                            },
-                                          );
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.75,
-                                        child: WebViewWidget(
-                                          controller: WebViewController()
-                                            ..loadRequest(
-                                              Uri.parse(webUrl),
-                                            ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.1,
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const SizedBox(
-                  height: 16.0,
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    'Simple Portfolio web application made with Flutter & GSheet. Check out the code on Github.',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2.4,
-                          wordSpacing: 1.2,
-                        ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.1,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    height: 16.0,
                   ),
-                  subtitle: RichText(
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      'Simple Portfolio web application made with Flutter & GSheet. Check out the code on Github.',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                             letterSpacing: 2.4,
                             wordSpacing: 1.2,
-                            color: Theme.of(context).colorScheme.primary,
                           ),
-                      children: const [
-                        /// if you clone this then please make sure leave a star on github
-                        /// and follow me on github(if you like my work)
-                        TextSpan(
-                          text:
-                              'If you are going to clone code repository then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet code is available in the backend folder.',
+                    ),
+                    subtitle: RichText(
+                      text: TextSpan(
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 2.4,
+                                  wordSpacing: 1.2,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                        children: const [
+                          /// if you clone this then please make sure leave a star on github
+                          /// and follow me on github(if you like my work)
+                          TextSpan(
+                            text:
+                                'If you are going to clone code repository then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet code is available in the backend folder.',
+                          ),
+                        ],
+                      ),
+                    ),
+                    leading: const Icon(FontAwesomeIcons.github),
+                    trailing: const Icon(Icons.launch),
+                    onTap: () {
+                      launchURL(
+                        context,
+                        'https://github.com/ravikovind/portfolio',
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16.0,
+                  ),
+                  Text(
+                    'Get in Touch',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
                   ),
-                  leading: const Icon(FontAwesomeIcons.github),
-                  trailing: const Icon(Icons.launch),
-                  onTap: () {
-                    launchURL(
-                      context,
-                      'https://github.com/ravikovind/portfolio',
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                Text(
-                  'Get in Touch',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                  Text(
+                    'Open for new Opportunities.\nI’m available for any information needed from my end.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          letterSpacing: 2.4,
+                          wordSpacing: 2.4,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
-                ),
-                Text(
-                  'Open for new Opportunities.\nI’m available for any information needed from my end.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        letterSpacing: 2.4,
-                        wordSpacing: 2.4,
+                      side: BorderSide(
+                        width: 1.0,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                OutlinedButton.icon(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0),
                     ),
-                    side: BorderSide(
-                      width: 1.0,
-                      color: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      launchURL(context, 'mailto:$kEmail');
+                    },
+                    icon: const Icon(
+                      Icons.mail,
                     ),
-                  ),
-                  onPressed: () {
-                    launchURL(context, 'mailto:$kEmail');
-                  },
-                  icon: const Icon(
-                    Icons.mail,
-                  ),
-                  label: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      kEmail,
-                      style: Theme.of(context).textTheme.bodySmall,
+                    label: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        kEmail,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const SocialAccounts(),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Text(
-                  'Thank you for Visiting.',
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  '© ${DateTime.now().year} Ravi Kovind.\nMade with Love❤️ in India 🇮🇳',
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-              ],
-            ),
-          )
-        ],
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const SocialAccounts(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Text(
+                    'Thank you for Visiting.',
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '© ${DateTime.now().year} Ravi Kovind.\nMade with Love❤️ in India 🇮🇳',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

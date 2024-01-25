@@ -9,19 +9,15 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeMode> {
   }
 
   @override
-  ThemeMode? fromJson(Map<String, dynamic> json) {
-    return ThemeMode.values.firstWhere(
-      (element) => element.toString() == json['theme']?.toString(),
-      orElse: () => ThemeMode.system,
-    );
-  }
+  ThemeMode? fromJson(Map<String, dynamic> json) => ThemeMode.values.firstWhere(
+        (element) => element.toString() == json['theme']?.toString(),
+        orElse: () => ThemeMode.system,
+      );
 
   @override
-  Map<String, dynamic>? toJson(ThemeMode state) {
-    return {
-      'theme': state.toString(),
-    };
-  }
+  Map<String, dynamic>? toJson(ThemeMode state) => {
+        'theme': state.toString(),
+      };
 }
 
 sealed class ThemeEvent {
