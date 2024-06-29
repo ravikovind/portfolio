@@ -12,6 +12,7 @@ import 'package:me/core/utils/responsive.dart';
 import 'package:me/core/utils/ui_helpers.dart';
 import 'package:me/view/widgets/loading.dart';
 import 'package:me/view/widgets/social_accounts.dart';
+import 'package:me/view/widgets/text_animator.dart';
 import 'package:string_contains/string_contains.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -282,11 +283,20 @@ class _HomePageState extends State<HomePage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                       ),
-                      Text(
-                        'Lead Developer || Open Source Contributor || NIT Allahabad Alumnus',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                      AnimatedTextKit(
+                        repeatForever: true,
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            'Lead Developer || Open Source Contributor || NIT Allahabad Alumnus',
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            speed: const Duration(milliseconds: 60),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 16.0,
