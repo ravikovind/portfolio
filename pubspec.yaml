@@ -38,9 +38,4 @@ flutter:
 
   assets:
     - assets/animations/
-    - fonts/
-
-  fonts:
-    - family: Urbanist
-      fonts:
-        - asset: fonts/Urbanist-Regular.ttf
+    

@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                           'assets/animations/json_2.json',
                           fit: BoxFit.contain,
                           reverse: true,
-                          height: MediaQuery.of(context).size.width * 0.375,
+                          height: MediaQuery.of(context).size.width * 0.325,
                         ),
                       )
                     : const SizedBox.shrink(),
@@ -320,12 +320,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                         label: Text(
                           'Get In Touch',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                fontSize: mobile ? 16.0 : 24.0,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    fontSize: mobile ? 16.0 : 24.0,
+                                  ),
                         ),
                       ),
                       const SizedBox(
@@ -499,8 +497,6 @@ class _HomePageState extends State<HomePage> {
                                           .labelLarge
                                           ?.copyWith(
                                             fontSize: mobile ? 16.0 : 24.0,
-                                            letterSpacing: 2.4,
-                                            wordSpacing: 2.4,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.green,
                                           ),
@@ -520,8 +516,6 @@ class _HomePageState extends State<HomePage> {
                                               .textTheme
                                               .labelSmall
                                               ?.copyWith(
-                                                letterSpacing: 2.4,
-                                                wordSpacing: 2.4,
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
                                                     .colorScheme
