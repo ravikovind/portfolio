@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:lottie/lottie.dart';
 import 'package:me/bloc/message/message_cubit.dart';
 import 'package:me/bloc/project/project_cubit.dart';
@@ -72,10 +72,8 @@ class _HomePageState extends State<HomePage> {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           trailing: IconButton(
-                            icon: const Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
+                            icon: const Icon(LucideIcons.circle_x),
+                            onPressed: () => Navigator.of(context).pop(),
                           )),
                       const SizedBox(
                         height: 8.0,
@@ -197,54 +195,51 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Portfolio'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () {
-              showAboutDialog(
-                context: context,
-                applicationName: 'Portfolio',
-                applicationVersion: '2.0.0',
-                applicationIcon: const FlutterLogo(),
-                applicationLegalese: 'Ravi Kovind © 2024',
-                children: [
-                  ListTile(
-                    contentPadding: const EdgeInsets.all(0),
-                    title: const Text('About'),
-                    subtitle: const Text(
-                      'This is a simple Portfolio web application made with Flutter & GSheet.',
-                    ),
-                    leading: const Icon(FontAwesomeIcons.github),
-                    trailing: const Icon(Icons.launch),
-                    onTap: () {
-                      launchURL(
-                        context,
-                        'https://github.com/ravikovind/portfolio',
-                      );
-                    },
+            icon: const Icon(LucideIcons.info),
+            onPressed: () => showAboutDialog(
+              context: context,
+              applicationName: 'Portfolio',
+              applicationVersion: '2.0.0',
+              applicationIcon: const FlutterLogo(),
+              applicationLegalese: 'Ravi Kovind © ${DateTime.now().year}',
+              children: [
+                ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: const Text('About'),
+                  subtitle: const Text(
+                    'This is a simple Portfolio web application made with Flutter & GSheet.',
                   ),
-                ],
-              );
-            },
+                  leading: const Icon(LucideIcons.github),
+                  trailing: const Icon(LucideIcons.external_link),
+                  onTap: () {
+                    launchURL(
+                      context,
+                      'https://github.com/ravikovind/portfolio',
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           IconButton(
-            icon: const Icon(Icons.email),
+            icon: const Icon(LucideIcons.mail),
             onPressed: () {
               welcome(context);
             },
           ),
           IconButton(
-            icon: const Icon(Icons.brightness_4),
-            onPressed: () {
-              context.read<ThemeBloc>().add(const ToggleTheme());
-            },
+            icon: const Icon(LucideIcons.sun),
+            onPressed: () => context.read<ThemeBloc>().add(const ToggleTheme()),
           ),
         ],
       ),
-      body: Scrollbar(
+      body: RawScrollbar(
         thickness: 16,
         interactive: true,
         thumbVisibility: true,
         trackVisibility: true,
         radius: const Radius.circular(2.0),
+        thumbColor: Theme.of(context).colorScheme.onPrimaryContainer,
         child: ListView(
           primary: true,
           children: [
@@ -271,10 +266,12 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       const SizedBox(height: 16.0),
                       Text(
-                        'Hey there! I am ',
+                        'Hey There! I am ',
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  wordSpacing: 2.0,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 2.4,
+                                  wordSpacing: 2.4,
                                 ),
                       ),
                       Text(
@@ -287,8 +284,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text(
                         'Lead Developer || Open Source Contributor || NIT Allahabad Alumnus',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w200,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
                       ),
                       const SizedBox(
@@ -302,10 +299,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text(
                         'Unleashing Limitless Potential:\nExpertly Crafting Cutting-Edge\nCross-Platform Applications,\nExceptional Websites,\nand Everything in Between\nand Redefining Digital Excellence.\nThat\'s what I do.',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              letterSpacing: 2.4,
-                              wordSpacing: 2.4,
-                            ),
+                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                       const SizedBox(
                         height: 16.0,
@@ -320,23 +314,18 @@ class _HomePageState extends State<HomePage> {
                             color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
-                        onPressed: () {
-                          launchURL(context, 'mailto:$kEmail');
-                        },
+                        onPressed: () => launchURL(context, 'mailto:$kEmail'),
                         icon: const Icon(
-                          Icons.mail,
+                          LucideIcons.mail,
                         ),
-                        label: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Get In Touch',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall
-                                ?.copyWith(
-                                  fontSize: mobile ? 16.0 : 24.0,
-                                ),
-                          ),
+                        label: Text(
+                          'Get In Touch',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                fontSize: mobile ? 16.0 : 24.0,
+                              ),
                         ),
                       ),
                       const SizedBox(
@@ -371,10 +360,7 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     kAbout,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          letterSpacing: 2.4,
-                          wordSpacing: 2.4,
-                        ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ],
               ),
@@ -396,9 +382,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else if (state is ProjectLoaded) {
                   final projects = state.projects;
-                  if (projects.isEmpty) {
-                    return const SizedBox.shrink();
-                  }
+                  if (projects.isEmpty) return const SizedBox.shrink();
                   return Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -429,8 +413,6 @@ class _HomePageState extends State<HomePage> {
                                     .labelLarge
                                     ?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      letterSpacing: 2.4,
-                                      wordSpacing: 1.2,
                                       color:
                                           Theme.of(context).colorScheme.primary,
                                     ),
@@ -447,19 +429,22 @@ class _HomePageState extends State<HomePage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             final project = projects[index];
+                            final webUrl = project.webUrl.notNullValue;
+                            final appUrl = project.appUrl.notNullValue;
                             return ExpansionTile(
-                              title: Text(
-                                '${project.name}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                      fontSize: mobile ? 16.0 : 24.0,
-                                      letterSpacing: 2.4,
-                                      wordSpacing: 2.4,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
+                              title: RichText(
+                                text: TextSpan(
+                                  text: '${project.name}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(
+                                        fontSize: mobile ? 16.0 : 24.0,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                ),
                               ),
                               initiallyExpanded: true,
                               subtitle: Text('${project.description}'),
@@ -471,7 +456,6 @@ class _HomePageState extends State<HomePage> {
                                   CrossAxisAlignment.start,
                               expandedAlignment: Alignment.topLeft,
                               children: [
-                                /// tags
                                 Wrap(
                                   alignment: WrapAlignment.start,
                                   crossAxisAlignment: WrapCrossAlignment.start,
@@ -506,98 +490,73 @@ class _HomePageState extends State<HomePage> {
                                 const SizedBox(
                                   height: 8.0,
                                 ),
-                                Builder(
-                                  builder: (context) {
-                                    if (project.appUrl.isNullOrEmpty) {
-                                      return const SizedBox.shrink();
-                                    }
-                                    return ListTile(
-                                      title: Text(
-                                        'Try Android Application',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge
-                                            ?.copyWith(
-                                              fontSize: mobile ? 16.0 : 24.0,
-                                              letterSpacing: 2.4,
-                                              wordSpacing: 2.4,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green,
-                                            ),
-                                      ),
-                                      leading: const Icon(
-                                        Icons.android,
-                                        color: Colors.green,
-                                      ),
-                                      trailing: const Icon(Icons.launch),
-                                      onTap: () {
-                                        launchURL(context, '${project.appUrl}');
-                                      },
-                                    );
-                                  },
-                                ),
-                                Builder(
-                                  builder: (context) {
-                                    if (project.webUrl.isNullOrEmpty) {
-                                      return const SizedBox.shrink();
-                                    }
-
-                                    final webUrl = project.webUrl.notNullValue;
-
-                                    /// load this url in webview sized box media query 0.5
-                                    return Column(
-                                      children: [
-                                        /// list tile to copy url
-                                        ListTile(
-                                          title: Text(
-                                            webUrl,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall
-                                                ?.copyWith(
-                                                  letterSpacing: 2.4,
-                                                  wordSpacing: 2.4,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                ),
+                                if (!appUrl.nullOrEmpty)
+                                  ListTile(
+                                    title: Text(
+                                      'Try Android Application',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                            fontSize: mobile ? 16.0 : 24.0,
+                                            letterSpacing: 2.4,
+                                            wordSpacing: 2.4,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green,
                                           ),
-                                          trailing: const Icon(
-                                            Icons.copy,
-                                          ),
-                                          onTap: () {
-                                            /// copy url to clipboard
-                                            Clipboard.setData(
-                                              ClipboardData(text: webUrl),
-                                            ).then(
-                                              (value) {
-                                                final snackBar = SnackBar(
-                                                  content: Text(
-                                                    '$webUrl copied to clipboard!',
-                                                  ),
-                                                );
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(snackBar);
-                                              },
+                                    ),
+                                    trailing:
+                                        const Icon(LucideIcons.external_link),
+                                    onTap: () =>
+                                        launchURL(context, '${project.appUrl}'),
+                                  ),
+                                if (!webUrl.nullOrEmpty)
+                                  Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          webUrl,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                letterSpacing: 2.4,
+                                                wordSpacing: 2.4,
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                              ),
+                                        ),
+                                        trailing: const Icon(
+                                          LucideIcons.copy,
+                                        ),
+                                        onTap: () => Clipboard.setData(
+                                          ClipboardData(text: webUrl),
+                                        ).then(
+                                          (value) {
+                                            final snackBar = SnackBar(
+                                              content: Text(
+                                                '$webUrl copied to clipboard!',
+                                              ),
                                             );
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(snackBar);
                                           },
                                         ),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          child: WebViewWidget(
-                                            controller: WebViewController()
-                                              ..loadRequest(
-                                                Uri.parse(webUrl),
-                                              ),
-                                          ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        child: WebViewWidget(
+                                          controller: WebViewController()
+                                            ..loadRequest(
+                                              Uri.parse(webUrl),
+                                            ),
                                         ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                      ),
+                                    ],
+                                  ),
                               ],
                             );
                           },
@@ -624,19 +583,13 @@ class _HomePageState extends State<HomePage> {
                     contentPadding: EdgeInsets.zero,
                     title: Text(
                       'Simple Portfolio web application made with Flutter & GSheet. Check out the code on Github.',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2.4,
-                            wordSpacing: 1.2,
-                          ),
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                     subtitle: RichText(
                       text: TextSpan(
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  letterSpacing: 2.4,
-                                  wordSpacing: 1.2,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                         children: const [
@@ -649,8 +602,8 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    leading: const Icon(FontAwesomeIcons.github),
-                    trailing: const Icon(Icons.launch),
+                    leading: const Icon(LucideIcons.github),
+                    trailing: const Icon(LucideIcons.external_link),
                     onTap: () {
                       launchURL(
                         context,
@@ -671,10 +624,7 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     'Open for new Opportunities.\nI’m available for any information needed from my end.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          letterSpacing: 2.4,
-                          wordSpacing: 2.4,
-                        ),
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                   const SizedBox(
                     height: 16,
@@ -689,11 +639,9 @@ class _HomePageState extends State<HomePage> {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    onPressed: () {
-                      launchURL(context, 'mailto:$kEmail');
-                    },
+                    onPressed: () => launchURL(context, 'mailto:$kEmail'),
                     icon: const Icon(
-                      Icons.mail,
+                      LucideIcons.mail,
                     ),
                     label: Padding(
                       padding: const EdgeInsets.all(4.0),

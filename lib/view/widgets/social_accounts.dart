@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:me/core/utils/contants.dart';
 import 'package:me/core/utils/ui_helpers.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SocialAccounts extends StatelessWidget {
   final MainAxisAlignment alignment;
@@ -13,35 +13,31 @@ class SocialAccounts extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(mainAxisAlignment: alignment, children: [
         IconButton(
-            onPressed: () {
-              launchURL(
-                context,
-                'tel://$kPhone',
-              );
-            },
-            icon: const Icon(
-              FontAwesomeIcons.phone,
+            onPressed: () => launchURL(
+                  context,
+                  'tel://$kPhone',
+                ),
+            icon: Icon(
+              LucideIcons.phone_call,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
         IconButton(
-            onPressed: () {
-              launchURL(context, kGithub);
-            },
-            icon: const Icon(
-              FontAwesomeIcons.github,
+            onPressed: () => launchURL(context, kGithub),
+            icon: Icon(
+              LucideIcons.github,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
         IconButton(
-            onPressed: () {
-              launchURL(context, kLinkedIn);
-            },
-            icon: const Icon(
-              FontAwesomeIcons.linkedin,
+            onPressed: () => launchURL(context, kLinkedIn),
+            icon: Icon(
+              LucideIcons.linkedin,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
         IconButton(
-            onPressed: () {
-              launchURL(context, kInstagram);
-            },
-            icon: const Icon(
-              FontAwesomeIcons.instagram,
+            onPressed: () => launchURL(context, kInstagram),
+            icon: Icon(
+              LucideIcons.instagram,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
       ]),
     );

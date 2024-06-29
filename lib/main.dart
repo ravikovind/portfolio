@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:me/bloc/message/message_cubit.dart';
 import 'package:me/bloc/project/project_cubit.dart';
@@ -12,7 +13,7 @@ import 'package:me/data/services/api_service.dart';
 import 'package:me/debug/application_bloc_observer.dart';
 import 'package:me/core/utils/contants.dart';
 import 'core/utils/color_schemes.dart';
-import 'view/pages/home_page.dart';
+import 'view/pages/home.dart';
 
 Future<void> main() async {
   /// initialize flutter binding
@@ -71,7 +72,9 @@ class Application extends StatelessWidget {
               title: kName,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                fontFamily: kFontFamily,
+                textTheme: GoogleFonts.spaceMonoTextTheme(
+                  Theme.of(context).textTheme,
+                ),
                 colorScheme: lightColorScheme,
                 inputDecorationTheme: const InputDecorationTheme(
                   border: OutlineInputBorder(
@@ -84,7 +87,13 @@ class Application extends StatelessWidget {
                 ),
               ),
               darkTheme: ThemeData(
-                fontFamily: kFontFamily,
+                textTheme: GoogleFonts.spaceMonoTextTheme(
+                  Theme.of(context).textTheme.apply(
+                        bodyColor: darkColorScheme.onSurface,
+                        displayColor: darkColorScheme.onSurface,
+                        decorationColor: darkColorScheme.onSurface,
+                      ),
+                ),
                 colorScheme: darkColorScheme,
                 inputDecorationTheme: const InputDecorationTheme(
                   border: OutlineInputBorder(
