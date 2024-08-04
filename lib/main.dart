@@ -32,7 +32,7 @@ Future<void> main() async {
   HydratedBloc.storage = storage;
 
   /// run app with MyApp
-  runApp(const Application());
+  return runApp(const Application());
 }
 
 class Application extends StatelessWidget {

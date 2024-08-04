@@ -12,7 +12,7 @@ class SocialAccounts extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(mainAxisAlignment: alignment, children: [
-        IconButton(
+        IconButton.outlined(
             onPressed: () => launchURL(
                   context,
                   'tel://$kPhone',
@@ -21,24 +21,28 @@ class SocialAccounts extends StatelessWidget {
               LucideIcons.phone_call,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
-        IconButton(
+        const SizedBox(width: 4),
+        IconButton.outlined(
             onPressed: () => launchURL(context, kGithub),
             icon: Icon(
               LucideIcons.github,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
-        IconButton(
+        const SizedBox(width: 4),
+        IconButton.outlined(
             onPressed: () => launchURL(context, kLinkedIn),
             icon: Icon(
               LucideIcons.linkedin,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
-        IconButton(
+        const SizedBox(width: 4),
+        IconButton.outlined(
             onPressed: () => launchURL(context, kInstagram),
             icon: Icon(
               LucideIcons.instagram,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             )),
+        const SizedBox(width: 4),
       ]),
     );
   }

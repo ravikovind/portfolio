@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       context.read<MessageCubit>().sendMessage(
             Message(
               name: 'Unkown',
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 8.0,
+                        height: 16.0,
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -126,13 +126,16 @@ class _HomePageState extends State<HomePage> {
                                     dateTime: DateTime.now().toIso8601String(),
                                   ),
                                 );
-                          } else {
-                            showMessage(
-                              context,
-                              'Error!',
-                              'Please enter valid details!',
-                            );
+                            return setState(() {
+                              _nameController.clear();
+                              _emailController.clear();
+                            });
                           }
+                          return showMessage(
+                            context,
+                            'Error!',
+                            'Please enter valid details!',
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 56.0),
@@ -195,7 +198,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Portfolio'),
         actions: [
-          IconButton(
+          IconButton.filledTonal(
             icon: const Icon(LucideIcons.info),
             onPressed: () => showAboutDialog(
               context: context,
@@ -222,16 +225,19 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          IconButton(
+          const SizedBox(width: 4.0),
+          IconButton.filledTonal(
             icon: const Icon(LucideIcons.mail),
             onPressed: () {
               welcome(context);
             },
           ),
-          IconButton(
+          const SizedBox(width: 4.0),
+          IconButton.filledTonal(
             icon: const Icon(LucideIcons.sun),
             onPressed: () => context.read<ThemeBloc>().add(const ToggleTheme()),
           ),
+          const SizedBox(width: 4.0),
         ],
       ),
       body: RawScrollbar(
@@ -309,7 +315,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text(
                         'Unleashing Limitless Potential:\nExpertly Crafting Cutting-Edge\nCross-Platform Applications,\nExceptional Websites,\nand Everything in Between\nand Redefining Digital Excellence.\nThat\'s what I do.',
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                       const SizedBox(
                         height: 16.0,
@@ -368,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     kAbout,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ],
               ),
@@ -445,19 +453,35 @@ class _HomePageState extends State<HomePage> {
                                   text: '${project.name}',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .labelLarge
+                                      .titleLarge
                                       ?.copyWith(
                                         fontSize: mobile ? 16.0 : 24.0,
+                                        fontWeight: FontWeight.bold,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary,
                                       ),
                                 ),
                               ),
-                              initiallyExpanded: true,
-                              subtitle: Text('${project.description}'),
+                              subtitle: StringContainsWidget(
+                                source: project.description ?? 'No Description',
+                                linkStyle: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                onTap: (t) {
+                                  if (t.type == StringContainsElementType.url) {
+                                    final value = t.value;
+                                    launchURL(context, value);
+                                  }
+                                },
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
                               childrenPadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
                                 vertical: 8.0,
                               ),
                               expandedCrossAxisAlignment:
@@ -572,6 +596,45 @@ class _HomePageState extends State<HomePage> {
                 return const SizedBox.shrink();
               },
             ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+              ),
+              title: Text(
+                'Simple Portfolio web application made with Flutter & GSheet.',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              subtitle: RichText(
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                  children: const [
+                    /// if you clone this then please make sure leave a star on github
+                    /// and follow me on github(if you like my work)
+                    TextSpan(
+                      text:
+                          'If you are going to clone code repository then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet code is available in the backend folder.',
+                    ),
+                  ],
+                ),
+              ),
+              trailing: IconButton.filledTonal(
+                tooltip: 'Check out the code on Github',
+                onPressed: () => launchURL(
+                  context,
+                  'https://github.com/ravikovind/portfolio',
+                ),
+                icon: const Icon(LucideIcons.github),
+              ),
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(
@@ -581,42 +644,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const SizedBox(
-                    height: 16.0,
-                  ),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      'Simple Portfolio web application made with Flutter & GSheet. Check out the code on Github.',
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    subtitle: RichText(
-                      text: TextSpan(
-                        style:
-                            Theme.of(context).textTheme.labelMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                        children: const [
-                          /// if you clone this then please make sure leave a star on github
-                          /// and follow me on github(if you like my work)
-                          TextSpan(
-                            text:
-                                'If you are going to clone code repository then please make sure leave a star on github and follow me on github(if you like my work), Thank you! Please change the GSheet link in the lib/core/utils/constants.dart file. and GSheet code is available in the backend folder.',
-                          ),
-                        ],
-                      ),
-                    ),
-                    leading: const Icon(LucideIcons.github),
-                    trailing: const Icon(LucideIcons.external_link),
-                    onTap: () {
-                      launchURL(
-                        context,
-                        'https://github.com/ravikovind/portfolio',
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 16.0,
+                    height: 16,
                   ),
                   Text(
                     'Get in Touch',
@@ -639,6 +667,33 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       side: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    onPressed: () => welcome(context),
+                    icon: const Icon(
+                      LucideIcons.mail,
+                    ),
+                    label: Text(
+                      'Send a Message',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                  ),
+                  Text(
+                    'OR',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                  ),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      side: BorderSide(
                         width: 1.0,
                         color: Theme.of(context).colorScheme.primary,
                       ),
@@ -647,12 +702,9 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(
                       LucideIcons.mail,
                     ),
-                    label: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        kEmail,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                    label: Text(
+                      kEmail,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                   const SizedBox(
