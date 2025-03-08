@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
       context.read<MessageCubit>().sendMessage(
             Message(
               name: 'Unkown',
@@ -256,13 +257,22 @@ class _HomePageState extends State<HomePage> {
                     ? Align(
                         alignment: Alignment.bottomRight,
                         child: Lottie.asset(
-                          'assets/animations/json_2.json',
+                          'assets/animations/animation_2.json',
                           fit: BoxFit.contain,
                           reverse: true,
-                          height: MediaQuery.of(context).size.width * 0.325,
+                          height: MediaQuery.of(context).size.width * 0.35,
                         ),
                       )
-                    : const SizedBox.shrink(),
+                    : Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Lottie.asset(
+                          'assets/animations/animation.json',
+                          fit: BoxFit.contain,
+                          reverse: true,
+                          height: MediaQuery.of(context).size.width * 0.375,
+                        ),
+                      ),
                 Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -433,11 +443,26 @@ class _HomePageState extends State<HomePage> {
                                           Theme.of(context).colorScheme.primary,
                                     ),
                               ),
+                              const TextSpan(
+                                text: '\n',
+                              ),
+                              TextSpan(
+                                text:
+                                    'Tap on play icon to view the project live. Use scrollbars to scroll!',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      letterSpacing: 2.4,
+                                      wordSpacing: 2.4,
+                                      color: Colors.red,
+                                    ),
+                              ),
                             ],
                           ),
                         ),
                         const SizedBox(
-                          height: 24.0,
+                          height: 12.0,
                         ),
                         ListView.builder(
                           itemCount: projects.length,
@@ -447,145 +472,183 @@ class _HomePageState extends State<HomePage> {
                             final project = projects[index];
                             final webUrl = project.webUrl.notNullValue;
                             final appUrl = project.appUrl.notNullValue;
-                            return ExpansionTile(
-                              title: RichText(
-                                text: TextSpan(
-                                  text: '${project.name}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        fontSize: mobile ? 16.0 : 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                ),
+                            return Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                                horizontal: 16.0,
                               ),
-                              subtitle: StringContainsWidget(
-                                source: project.description ?? 'No Description',
-                                linkStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                onTap: (t) {
-                                  if (t.type == StringContainsElementType.url) {
-                                    final value = t.value;
-                                    launchURL(context, value);
-                                  }
-                                },
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                              childrenPadding: const EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 vertical: 8.0,
                               ),
-                              expandedCrossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              expandedAlignment: Alignment.topLeft,
-                              children: [
-                                Wrap(
-                                  alignment: WrapAlignment.start,
-                                  crossAxisAlignment: WrapCrossAlignment.start,
-                                  runAlignment: WrapAlignment.start,
-                                  spacing: 8.0,
-                                  runSpacing: 8.0,
-                                  children: [
-                                    ...project.tags?.map(
-                                          (tag) => Chip(
-                                            backgroundColor: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            label: Text(
-                                              tag,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall
-                                                  ?.copyWith(
-                                                    letterSpacing: 2.4,
-                                                    wordSpacing: 2.4,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onError,
-                                                  ),
-                                            ),
-                                          ),
-                                        ) ??
-                                        [],
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                if (!appUrl.nullOrEmpty)
-                                  ListTile(
-                                    title: Text(
-                                      'Try Android Application',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge
-                                          ?.copyWith(
-                                            fontSize: mobile ? 16.0 : 24.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green,
-                                          ),
-                                    ),
-                                    trailing:
-                                        const Icon(LucideIcons.external_link),
-                                    onTap: () =>
-                                        launchURL(context, '${project.appUrl}'),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: BorderRadius.circular(16.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .outline
+                                        .withValues(
+                                          alpha: 0.1,
+                                        ),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 2.0,
                                   ),
-                                if (!webUrl.nullOrEmpty)
-                                  Column(
+                                ],
+                              ),
+                              child: ExpansionTile(
+                                trailing: webUrl.nullOrEmpty
+                                    ? null
+                                    : Icon(
+                                        LucideIcons.circle_play,
+                                        color: Colors.red,
+                                      ),
+                                title: RichText(
+                                  text: TextSpan(
+                                    text: '${project.name}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          fontSize: mobile ? 16.0 : 24.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                  ),
+                                ),
+                                subtitle: StringContainsWidget(
+                                  source:
+                                      project.description ?? 'No Description',
+                                  linkStyle: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium
+                                      ?.copyWith(
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                  onTap: (t) {
+                                    if (t.type ==
+                                        StringContainsElementType.url) {
+                                      final value = t.value;
+                                      launchURL(context, value);
+                                    }
+                                  },
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                childrenPadding: const EdgeInsets.symmetric(
+                                  vertical: 8.0,
+                                ),
+                                expandedCrossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                expandedAlignment: Alignment.topLeft,
+                                children: [
+                                  Wrap(
+                                    alignment: WrapAlignment.start,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.start,
+                                    runAlignment: WrapAlignment.start,
+                                    spacing: 8.0,
+                                    runSpacing: 8.0,
                                     children: [
-                                      ListTile(
-                                        title: Text(
-                                          webUrl,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
+                                      ...project.tags?.map(
+                                            (tag) => Chip(
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
+                                              label: Text(
+                                                tag,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall
+                                                    ?.copyWith(
+                                                      letterSpacing: 2.4,
+                                                      wordSpacing: 2.4,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onError,
+                                                    ),
                                               ),
-                                        ),
-                                        trailing: const Icon(
-                                          LucideIcons.copy,
-                                        ),
-                                        onTap: () => Clipboard.setData(
-                                          ClipboardData(text: webUrl),
-                                        ).then(
-                                          (value) {
-                                            final snackBar = SnackBar(
-                                              content: Text(
-                                                '$webUrl copied to clipboard!',
-                                              ),
-                                            );
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackBar);
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height,
-                                        child: WebViewWidget(
-                                          controller: WebViewController()
-                                            ..loadRequest(
-                                              Uri.parse(webUrl),
                                             ),
-                                        ),
-                                      ),
+                                          ) ??
+                                          [],
                                     ],
                                   ),
-                              ],
+                                  const SizedBox(
+                                    height: 8.0,
+                                  ),
+                                  if (!appUrl.nullOrEmpty)
+                                    ListTile(
+                                      title: Text(
+                                        'Try Android Application',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              fontSize: mobile ? 16.0 : 24.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green,
+                                            ),
+                                      ),
+                                      trailing:
+                                          const Icon(LucideIcons.external_link),
+                                      onTap: () => launchURL(
+                                          context, '${project.appUrl}'),
+                                    ),
+                                  if (!webUrl.nullOrEmpty)
+                                    Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                            webUrl,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelSmall
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                          ),
+                                          trailing: const Icon(
+                                            LucideIcons.copy,
+                                          ),
+                                          onTap: () => Clipboard.setData(
+                                            ClipboardData(text: webUrl),
+                                          ).then(
+                                            (value) {
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                  '$webUrl copied to clipboard!',
+                                                ),
+                                              );
+                                              if (!context.mounted) return;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          child: WebViewWidget(
+                                            controller: WebViewController()
+                                              ..loadRequest(
+                                                Uri.parse(webUrl),
+                                              ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                ],
+                              ),
                             );
                           },
                         )

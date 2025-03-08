@@ -25,7 +25,7 @@ Future<void> main() async {
 
   /// initialize hydrated bloc storage
   final storage = await HydratedStorage.build(
-    storageDirectory: HydratedStorage.webStorageDirectory,
+    storageDirectory: HydratedStorageDirectory.web,
   );
 
   /// initialize hydrated bloc delegate
@@ -63,7 +63,7 @@ class Application extends StatelessWidget {
               title: kName,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                textTheme: GoogleFonts.spaceMonoTextTheme(
+                textTheme: GoogleFonts.urbanistTextTheme(
                   Theme.of(context).textTheme,
                 ),
                 colorScheme: lightColorScheme,
@@ -78,7 +78,7 @@ class Application extends StatelessWidget {
                 ),
               ),
               darkTheme: ThemeData(
-                textTheme: GoogleFonts.spaceMonoTextTheme(
+                textTheme: GoogleFonts.urbanistTextTheme(
                   Theme.of(context).textTheme.apply(
                         bodyColor: darkColorScheme.onSurface,
                         displayColor: darkColorScheme.onSurface,
